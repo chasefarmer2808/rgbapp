@@ -37,7 +37,7 @@ function startup() {
     
     statusView = document.querySelector('.status-container');
 
-    r_input.addEventListener('change', updateStatusBackground, false);
+    r_input.addEventListener('change', updateRGBValuesFromInput, false);
     g_input.addEventListener('change', updateStatusBackground, false);
     b_input.addEventListener('change', updateStatusBackground, false);
     onBtn.addEventListener('click', rgbOn, false);
@@ -73,6 +73,20 @@ function rgbOff() {
         .fail(function() {
             console.log('err off gpio')
         });
+}
+
+function updateRGBValuesFromInput(event) {
+    rVal = r_input.value;
+
+    updateSliderValues();
+}
+
+function updateInputValues() {
+    r_input.value = rVal;
+}
+
+function updateSliderValues() {
+    r_slider.value = rVal;
 }
 
 function updateStatusBackground() {
