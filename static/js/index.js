@@ -8,9 +8,9 @@ var r_input, b_input, g_input,
 
 var BASE_URL = 'http://192.168.0.106:5000';
 
-var rVal = 0, 
-    gVal = 0,
-    bVal = 0;
+var rVal = 255, 
+    gVal = 255,
+    bVal = 255;
 
 function hexToRGBArray(hex) {
     r = parseInt(hex.substring(1, 3), 16);
@@ -37,17 +37,21 @@ function startup() {
     
     statusView = document.querySelector('.status-container');
 
-    r_input.addEventListener('change', updateRGBValuesFromInput, false);
-    g_input.addEventListener('change', updateStatusBackground, false);
-    b_input.addEventListener('change', updateStatusBackground, false);
+    r_input.addEventListener('input', updateRGBValuesFromInput, false);
+    g_input.addEventListener('input', updateRGBValuesFromInput, false);
+    b_input.addEventListener('input', updateRGBValuesFromInput, false);
+    r_slider.addEventListener('input', updateRGBValuesFromSlider, false);
+    g_slider.addEventListener('input', updateRGBValuesFromSlider, false);
+    b_slider.addEventListener('input', updateRGBValuesFromSlider, false);
+    
     onBtn.addEventListener('click', rgbOn, false);
     offBtn.addEventListener('click', rgbOff, false);
     submitBtn.addEventListener('click', updateRGB, false);
 }
 
 function initInputValues() {
-    r_input.value = rVal;
-    r_slider.value = rVal;
+    updateInputValues();
+    updateSliderValues();
 }
 
 function rgbOn() {
@@ -56,7 +60,7 @@ function rgbOn() {
     $.get(url)
         .done(function() {
             console.log('on')
-            setRGB(255, 255, 255);
+            setRGBInputs(rVal, gVal, bVal);
         })
         .fail(function() {
             console.log('err init gpio')
@@ -75,41 +79,50 @@ function rgbOff() {
         });
 }
 
-function updateRGBValuesFromInput(event) {
+function updateRGBValuesFromInput() {
     rVal = r_input.value;
+    bVal = b_input.value;
+    gVal = g_input.value;
 
-    updateSliderValues();
+    setRGBInputs(rVal, gVal, bVal);
+}
+
+function updateRGBValuesFromSlider() {
+    rVal = r_slider.value;
+    gVal = g_slider.value;
+    bVal = b_slider.value;
+
+    setRGBInputs(rVal, gVal, bVal);
 }
 
 function updateInputValues() {
     r_input.value = rVal;
+    g_input.value = gVal;
+    b_input.value = bVal;
 }
 
 function updateSliderValues() {
     r_slider.value = rVal;
+    g_slider.value = gVal;
+    b_slider.value = bVal;
 }
 
 function updateStatusBackground() {
-    var rgb = getRGBValues();
-
-    statusView.style.backgroundColor = `rgb(${rgb[0]},${rgb[1]},${rgb[2]})`;
+    statusView.style.backgroundColor = `rgb(${rVal},${gVal},${bVal})`;
 }
 
-function setRGB(r, g, b) {
+function setRGBInputs(r, g, b) {
     r_input.value = r;
     r_slider.value = r;
     g_input.value = g;
     g_slider.value = g;
     b_input.value = b;
     b_slider.value = b;
+    updateStatusBackground();
 }
 
 function updateRGB() {
-    r = r_input.value || 0;
-    g = g_input.value || 0;
-    b = b_input.value || 0;
-
-    var url = `${BASE_URL}/gpio/${r}/${g}/${b}`;
+    var url = `${BASE_URL}/gpio/${rVal}/${gVal}/${bVal}`;
     console.log(url)
 
     $.get(url, function(data, status) {
