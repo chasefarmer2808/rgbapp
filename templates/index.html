@@ -19,7 +19,26 @@
                 </div>
             </div>
             <div class="color-picker-container">
-                <input type="color" id="color-picker" value="#fdffff">
+                <div class="slider-container">
+                    <div class="slider">
+                        <input type="range" id="red-range" min="0" max="255">
+                        <input type="number" id="red-val" min="0" max="255">
+                        <div class="color-box" id="red-box"></div>
+                    </div>
+                    <div class="slider">
+                        <input type="range" id="green-range" min="0" max="255">
+                        <input type="number" id="green-val" min="0" max="255">
+                        <div class="color-box" id="green-box"></div>
+                    </div>
+                    <div class="slider">
+                        <input type="range" id="blue-range" min="0" max="255">
+                        <input type="number" id="blue-val" min="0" max="255">
+                        <div class="color-box" id="blue-box"></div>
+                    </div>
+                </div>
+                <div class="submit-button-container">
+                    <button type="button" class="submit-button">Submit</div>
+                </div>
             </div>
         </div>
     <body>

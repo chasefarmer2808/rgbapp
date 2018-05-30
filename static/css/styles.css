@@ -34,5 +34,39 @@
 }
 
 .color-picker-container {
-    grid-area: picker;
+    grid-area: picker; 
+}
+
+.slider {
+    display: grid;
+    grid-template-columns: 5fr 1fr 1fr;
+    margin: 16px;
+}
+
+.color-box {
+    width: 24px;
+    height: 24px;
+}
+
+#red-box {
+    background-color: red;
+}
+
+#green-box {
+    background-color: green;
+}
+
+#blue-box {
+    background-color: blue;
+}
+
+.submit-button-container {
+    width: 100%;
+    display: flex;
+    margin: 16px;
+    justify-content: center;
+}
+
+.submit-button {
+    width: 50vw;
 }
