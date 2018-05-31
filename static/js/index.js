@@ -29,7 +29,7 @@ function startup() {
     g_slider = document.querySelector('#green-range');
     b_slider = document.querySelector('#blue-range');
 
-    initInputValues();
+    setRGBInputs();
     
     onBtn = document.querySelector('#on-button');
     offBtn = document.querySelector('#off-button');
@@ -49,9 +49,44 @@ function startup() {
     submitBtn.addEventListener('click', updateRGB, false);
 }
 
-function initInputValues() {
-    updateInputValues();
-    updateSliderValues();
+function updateRGBValuesFromInput() {
+    rVal = r_input.value;
+    bVal = b_input.value;
+    gVal = g_input.value;
+
+    setRGBInputs();
+}
+
+function updateRGBValuesFromSlider() {
+    rVal = r_slider.value;
+    gVal = g_slider.value;
+    bVal = b_slider.value;
+
+    setRGBInputs();
+}
+
+function setRGBInputs() {
+    r_input.value = rVal;
+    r_slider.value = rVal;
+    g_input.value = gVal;
+    g_slider.value = gVal;
+    b_input.value = bVal;
+    b_slider.value = bVal;
+    updateStatusBackground();
+}
+
+function updateStatusBackground() {
+    statusView.style.backgroundColor = `rgb(${rVal},${gVal},${bVal})`;
+}
+
+function updateRGB() {
+    var url = `${BASE_URL}/gpio/${rVal}/${gVal}/${bVal}`;
+    console.log(url)
+
+    $.get(url, function(data, status) {
+        console.log(data);
+        console.log(status);
+    });
 }
 
 function rgbOn() {
@@ -77,66 +112,6 @@ function rgbOff() {
         .fail(function() {
             console.log('err off gpio')
         });
-}
-
-function updateRGBValuesFromInput() {
-    rVal = r_input.value;
-    bVal = b_input.value;
-    gVal = g_input.value;
-
-    setRGBInputs(rVal, gVal, bVal);
-}
-
-function updateRGBValuesFromSlider() {
-    rVal = r_slider.value;
-    gVal = g_slider.value;
-    bVal = b_slider.value;
-
-    setRGBInputs(rVal, gVal, bVal);
-}
-
-function updateInputValues() {
-    r_input.value = rVal;
-    g_input.value = gVal;
-    b_input.value = bVal;
-}
-
-function updateSliderValues() {
-    r_slider.value = rVal;
-    g_slider.value = gVal;
-    b_slider.value = bVal;
-}
-
-function updateStatusBackground() {
-    statusView.style.backgroundColor = `rgb(${rVal},${gVal},${bVal})`;
-}
-
-function setRGBInputs(r, g, b) {
-    r_input.value = r;
-    r_slider.value = r;
-    g_input.value = g;
-    g_slider.value = g;
-    b_input.value = b;
-    b_slider.value = b;
-    updateStatusBackground();
-}
-
-function updateRGB() {
-    var url = `${BASE_URL}/gpio/${rVal}/${gVal}/${bVal}`;
-    console.log(url)
-
-    $.get(url, function(data, status) {
-        console.log(data);
-        console.log(status);
-    });
-}
-
-function getRGBValues() {
-    r = r_input.value || 0;
-    g = g_input.value || 0;
-    b = b_input.value || 0;
-
-    return [r, g, b];
 }
 
 
