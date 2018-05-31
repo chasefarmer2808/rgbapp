@@ -1,35 +1,36 @@
-.main-container {
-    width: 100%;
-    height: 100%;
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 75px auto;
-    grid-gap: 8px;
-    grid-template-areas:
-        "status"
-        "actions"
-        "picker"
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
-.status-container {
-    grid-area: status;
+.main-container {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 2fr 2fr;
+    grid-gap: 8px;
+    grid-template-areas:
+        "power"
+        "picker"
+        "submit"
+}
+
+.submit-container {
+    grid-area: submit;
     height: 75px;
 }
 
 .power-button-container {
-    grid-area: actions;
+    grid-area: power;
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr;
     grid-gap: 8px;
 }
 
-.power-button {
-    background-color: blue;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
+.circle-button {
+    
 }
 
 .color-picker-container {
