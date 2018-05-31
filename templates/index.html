@@ -7,16 +7,8 @@
     </head>
     <body>
         <div class="main-container">
-            <div class="status-container">
-                <div class="status"></div>
-            </div>
             <div class="power-button-container">
-                <div class="power-button" id="on-button">
-                    <span>On<span>
-                </div>
-                <div class="power-button" id="off-button">
-                    <span>Off<span>
-                </div>
+                <button type="button" class="circle-button" id="toggle-button">On/Off</button>
             </div>
             <div class="color-picker-container">
                 <div class="slider-container">
@@ -36,8 +28,11 @@
                         <div class="color-box" id="blue-box"></div>
                     </div>
                 </div>
+                <div class="status-container">
+                    <div class="status"></div>
+                </div>
                 <div class="submit-button-container">
-                    <button type="button" class="submit-button">Submit</div>
+                    <button type="button" class="circle-button" id="submit-button">Submit</button>
                 </div>
             </div>
         </div>

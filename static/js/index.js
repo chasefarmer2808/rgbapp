@@ -4,13 +4,15 @@ $(document).ready(function() {
 
 var r_input, b_input, g_input,
     r_slider, b_slider, g_slider,
-    onBtn, offBtn, submitBtn;
+    onBtn, offBtn, submitBtn, statusView;
 
 var BASE_URL = 'http://192.168.0.106:5000';
 
 var rVal = 255, 
     gVal = 255,
     bVal = 255;
+
+var powerStatus = false;
 
 function hexToRGBArray(hex) {
     r = parseInt(hex.substring(1, 3), 16);
@@ -28,12 +30,9 @@ function startup() {
     r_slider = document.querySelector('#red-range');
     g_slider = document.querySelector('#green-range');
     b_slider = document.querySelector('#blue-range');
-
-    setRGBInputs();
     
-    onBtn = document.querySelector('#on-button');
-    offBtn = document.querySelector('#off-button');
-    submitBtn = document.querySelector('.submit-button');
+    powerBtn = document.querySelector('#toggle-button');
+    submitBtn = document.querySelector('#submit-button');
     
     statusView = document.querySelector('.status-container');
 
@@ -44,9 +43,20 @@ function startup() {
     g_slider.addEventListener('input', updateRGBValuesFromSlider, false);
     b_slider.addEventListener('input', updateRGBValuesFromSlider, false);
     
-    onBtn.addEventListener('click', rgbOn, false);
-    offBtn.addEventListener('click', rgbOff, false);
+    powerBtn.addEventListener('click', toggleLEDPower, false);
     submitBtn.addEventListener('click', updateRGB, false);
+
+    setRGBInputs();
+}
+
+function toggleLEDPower() {
+    if (powerStatus) {
+        rgbOff();
+    } else {
+        rgbOn();
+    }
+
+    powerStatus = !powerStatus;
 }
 
 function updateRGBValuesFromInput() {
