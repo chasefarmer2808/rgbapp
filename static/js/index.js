@@ -4,7 +4,7 @@ $(document).ready(function() {
 
 var r_input, b_input, g_input,
     r_slider, b_slider, g_slider,
-    onBtn, offBtn, submitBtn, statusView;
+    onBtn, offBtn, submitBtn;
 
 var BASE_URL = 'http://192.168.0.106:5000';
 
@@ -33,8 +33,6 @@ function startup() {
     
     powerBtn = document.querySelector('#toggle-button');
     submitBtn = document.querySelector('#submit-button');
-    
-    statusView = document.querySelector('.status-container');
 
     r_input.addEventListener('input', updateRGBValuesFromInput, false);
     g_input.addEventListener('input', updateRGBValuesFromInput, false);
@@ -86,7 +84,7 @@ function setRGBInputs() {
 }
 
 function updateStatusBackground() {
-    statusView.style.backgroundColor = `rgb(${rVal},${gVal},${bVal})`;
+    submitBtn.style.backgroundColor = `rgb(${rVal},${gVal},${bVal})`;
 }
 
 function updateRGB() {

@@ -1,3 +1,4 @@
+import logging
 import RPi.GPIO as GPIO
 
 from flask import Flask, render_template
@@ -51,6 +52,7 @@ def set_rgb(r, g, b):
 
 if __name__ == '__main__':
     try:
+        logging.basicConfig(filename='output.log', level=logging.INFO)
         app.run(debug=True, host='0.0.0.0')
     finally:
         GPIO.cleanup()
